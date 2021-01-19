@@ -1,0 +1,18 @@
+Quesiton 1-5 client and echo_server
+
+Question 1:
+Specify the parameters (respectively): socket.AF_INET, socket.SOCK_STREAM
+when you create a socket.socket().
+
+Question 2:
+The server socket listens (for a client connection), but doesn't actually start the connection.
+The client socket starts a connection to a server socket that is listening.
+
+Question 3:
+
+
+Question 4:
+
+
+Question 5:
+(referring to the echo server. Actually, either one)
