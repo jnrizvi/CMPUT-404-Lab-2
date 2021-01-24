@@ -8,9 +8,12 @@ import time
 
 #define address & buffer size
 
-# Should this host be google?
+# remote ip for google. I should borrow that helper function from client.py
+# HOST = "172.217.3.164"
+# HOST = "172.217.3.206"
 HOST = "www.google.com"
-PORT = 8001
+# PORT = 8001
+PORT = 80
 BUFFER_SIZE = 1024
 
 def main():

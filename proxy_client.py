@@ -42,6 +42,7 @@ def main():
 
         # Should this be localhost? 
         host = 'localhost'
+        # host = '127.0.0.1'
         port = 80
         payload = f'GET / HTTP/1.0\r\nHost: {host}\r\n\r\n'
         buffer_size = 4096

@@ -47,7 +47,7 @@ def main():
         s = create_tcp_socket()
 
         remote_ip = get_remote_ip(host)
-
+        
         # The client socket starts a connection to a server socket that is listening.
         # s.connect() is used to connect to a remote server address, in this case, Google (whose IP is in remote_ip)
         s.connect((remote_ip , port))
