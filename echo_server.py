@@ -17,9 +17,10 @@ def main():
         # I think this is how we instruct the os to reuse the same bind port
         s.setsockopt(socket.SOL_SOCKET, socket.SO_REUSEADDR, 1)
         
-        #bind socket to address
+        # bind the TCP socket to its local address, so that clients can use the address in
+        # order to connect to it as a remote server.
         s.bind((HOST, PORT))
-        #set to listening mode
+        # set to listening mode
         s.listen(2)
         
         #continuously listen for connections
@@ -27,11 +28,14 @@ def main():
             conn, addr = s.accept()
             print("Connected by", addr)
             
-            #recieve data, wait a bit, then send it back
+            #recieve data
             full_data = conn.recv(BUFFER_SIZE)
             print(full_data)
+            # wait a bit
             time.sleep(0.5)
+            # send it back
             conn.sendall(full_data)
+            # closes after receiving and sending back one byte
             conn.close()
 
 if __name__ == "__main__":

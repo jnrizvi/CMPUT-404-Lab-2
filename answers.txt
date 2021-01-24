@@ -9,10 +9,22 @@ The server socket listens (for a client connection), but doesn't actually start 
 The client socket starts a connection to a server socket that is listening.
 
 Question 3:
-
+We can use the line:
+s.setsockopt(socket.SOL_SOCKET, socket.SO_REUSEADDR, 1)
+Where the variable s is a TCP socket.
 
 Question 4:
-
+When we connect to the echo_server (using the command telnet localhost 8001, in my case), the output:
+Connected by ('127.0.0.1', 51221)
+Shows the IP addess of the client that connected, followed by a port.
 
 Question 5:
-(referring to the echo server. Actually, either one)
+(referring to the echo server)
+full_data is returned from recv(), and that is a byte string containing the data sent from the client.
+
+# telnet localhost 8001
+# Ctrl+]
+# sen echo Foobar
+# quit
+
+Question 6:

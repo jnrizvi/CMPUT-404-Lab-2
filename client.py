@@ -5,6 +5,7 @@ import socket, sys
 def create_tcp_socket():
     print('Creating socket')
     try:
+        # Creates a TCP socket
         s = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
     except (socket.error, msg):
         print(f'Failed to create socket. Error code: {str(msg[0])} , Error message : {msg[1]}')
@@ -47,6 +48,8 @@ def main():
 
         remote_ip = get_remote_ip(host)
 
+        # The client socket starts a connection to a server socket that is listening.
+        # s.connect() is used to connect to a remote server address, in this case, Google (whose IP is in remote_ip)
         s.connect((remote_ip , port))
         print (f'Socket Connected to {host} on ip {remote_ip}')
         
@@ -61,7 +64,7 @@ def main():
             if not data:
                  break
             full_data += data
-        print(full_data)
+        # print(full_data)
     except Exception as e:
         print(e)
     finally:
@@ -71,4 +74,10 @@ if __name__ == "__main__":
     main()
 
 # If echo "Foobar" | nc localhost 8001 -q 1 gives the error nc: invalid option -- q, then remove -q.
-# I'm using telnet anyways.
+
+# I'm using telnet anyways:
+
+# telnet localhost 8001
+# Ctrl+]
+# sen echo Foobar
+# quit
