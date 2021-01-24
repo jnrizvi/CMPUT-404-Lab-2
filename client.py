@@ -1,3 +1,5 @@
+# Copied from TA's client.py
+
 #!/usr/bin/env python3
 import socket, sys
 

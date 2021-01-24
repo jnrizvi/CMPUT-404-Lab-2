@@ -1,4 +1,5 @@
 # The client prints out google information after being connected via proxy to the server
+# Code adapted from TA's client.py
 
 #!/usr/bin/env python3
 import socket, sys
@@ -40,12 +41,12 @@ def main():
     try:
         #define address info, payload, and buffer size
 
-        # Should this be localhost? 
         host = 'localhost'
-        # host = '127.0.0.1'
-        port = 80
-        payload = f'GET / HTTP/1.0\r\nHost: {host}\r\n\r\n'
+        port = 8001
+        payload = f'GET / HTTP/1.0\r\nHost: www.google.com\r\n\r\n'
         buffer_size = 4096
+
+        print("Payload from proxy client:", payload)
 
         #make the socket, get the ip, and connect
         s = create_tcp_socket()

@@ -1,3 +1,5 @@
+# Copied from TA's echo_server.py
+
 #!/usr/bin/env python3
 import socket
 import time

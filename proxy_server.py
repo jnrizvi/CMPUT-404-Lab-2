@@ -1,20 +1,37 @@
 # Needs to be made forking. Check out https://docs.python.org/3.4/library/multiprocessing.html?highlight=process
+# Code adapted from TA's echo_server.py
 
 #!/usr/bin/env python3
 import socket
 import time
+import sys
 
-# Needs to be made forking. Check out https://docs.python.org/3.4/library/multiprocessing.html?highlight=process
-
-#define address & buffer size
-
-# remote ip for google. I should borrow that helper function from client.py
-# HOST = "172.217.3.164"
-# HOST = "172.217.3.206"
-HOST = "www.google.com"
-# PORT = 8001
-PORT = 80
+HOST = ""
+PORT = 8001
 BUFFER_SIZE = 1024
+
+#get host information
+def get_remote_ip(host):
+    print(f'Getting IP for {host}')
+    try:
+        remote_ip = socket.gethostbyname( host )
+    except socket.gaierror:
+        print ('Hostname could not be resolved. Exiting')
+        sys.exit()
+
+    print (f'Ip address of {host} is {remote_ip}')
+    return remote_ip
+
+#send data to server
+def send_data(serversocket, payload):
+    print("Sending payload")    
+    try:
+        serversocket.sendall(payload.encode())
+        # serversocket.sendall(payload)
+    except socket.error:
+        print ('Send failed')
+        sys.exit()
+    print("Payload sent successfully from the proxy server")
 
 def main():
     # Recall that this is how a TCP socket is created
@@ -24,21 +41,32 @@ def main():
         # I think this is how we instruct the os to reuse the same bind port
         s.setsockopt(socket.SOL_SOCKET, socket.SO_REUSEADDR, 1)
         
-        # This time, bind the TCP socket to Google. Clients can connect to this proxy server
-        # and GET from Google without having to connect directly to Google! 
         s.bind((HOST, PORT))
-        #set to listening mode
         s.listen(2)
         
+        # # I'm unable to connect to google for some reason
+        # google_ip = get_remote_ip("www.google.com")
+        # google_port = 80
+
+        # s.connect((google_ip, google_port))
+        # print (f'Proxy server Connected to www.google.com on ip {google_ip}')
+
         #continuously listen for connections
         while True:
             conn, addr = s.accept()
             print("Connected by", addr)
             
-            #recieve data, wait a bit, then send it back
+            # recieve a message from a connected proxy_client
             full_data = conn.recv(BUFFER_SIZE)
             print(full_data)
+
+            # Sends the message received from a connected proxy_client to google
+            send_data(s, full_data.decode("utf-8"))
+            # s.send(full_data)
+
+            # wait a bit
             time.sleep(0.5)
+            # send back to the connected proxy_client
             conn.sendall(full_data)
             conn.close()
 
